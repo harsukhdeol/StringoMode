@@ -99,40 +99,30 @@ namespace cheetos
 
 }
 	int main() {
-		std::ifstream in("derp.txt");
+		//std::ifstream in("derp.txt");
 
-		if (!in)//check if file is open  before doing anything else
-		{
-			cheetos::print("Failed to open file!!");
-			while (!_kbhit());
+		//if (!in)//check if file is open  before doing anything else
+		//{
+		//	cheetos::print("Failed to open file!!");
+		//	while (!_kbhit());
 
-			return -1;
-		}
-		//in.seekg(6);//moves text pointer 6 ahead
-		//in.seekg(-3, std::ios::cur);// move  back from current pos
+		//	return -1;
+		//}
+		//in.seekg(0, std::ios::end); //get last char in file
+		//const int length = in.tellg(); //get abs pos of get pointer of file
 
-		in.seekg(0, std::ios::end); //get last char in file
-		const int length = in.tellg(); //get abs pos of get pointer of file
+		//cheetos::print("File size: "); //prints out file size in bytes
+		//char buffer[255];
+		//cheetos::InttoString(length, buffer, 255);
+		//cheetos::print(buffer);
+		//in.seekg(0, std::ios::beg);
+		//cheetos::print("\n");
 
-		cheetos::print("File size: "); //prints out file size in bytes
-		char buffer[255];
-		cheetos::InttoString(length, buffer, 255);
-		cheetos::print(buffer);
-		in.seekg(0, std::ios::beg);
-		cheetos::print("\n");
-
-		for (char c = in.get(); in.good(); c = in.get())		// get char, check if its not -1, then keep value
-		{
-			_putch(c);
-		}
-
-
-		std::ofstream out("fileOut.txt");
-		for (char c = _getch(); c != 13; c = _getch()) /// put file until enter pressed
-		{
-			out.put(c);//output file one char at a time
-		}
-		if (in.bad())
+		//for (char c = in.get(); in.good(); c = in.get())		// get char, check if its not -1, then keep value
+		//{
+		//	_putch(c);
+		//}
+			/*if (in.bad())
 		{
 			cheetos::print("\nyou messed up bro");
 		}
@@ -142,7 +132,20 @@ namespace cheetos
 		}
 		else {
 			cheetos::print("\n another error???");
-		}
+		}*/
+
+		
+		//std::ofstream out("data.dat");
+		//out.write(reinterpret_cast<const char*>(&myInt), sizeof(myInt));
+	
+		std::ifstream in("data.dat", std::ios::binary);
+		int data;
+		in.read(reinterpret_cast<char*>(&data), sizeof(int));// pass interpreted char buffer to in
+
+		char buffer[256];
+		cheetos::InttoString(data,buffer, 256);
+		cheetos::print(buffer);// print binary data back
+
 		while (!_kbhit());
 		return 0;
 	}
