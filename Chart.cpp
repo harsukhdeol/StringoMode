@@ -172,10 +172,10 @@ void InttoString(int val, char* buff, int size)
 	StringRev(pStart);
 }
 
-int main()
+void doDb()
 {
 	bool quit = false;
-	Database db;
+	Database* db = new Database; //create dynamic heap
 
 	char val[256];
 	char val2[256];
@@ -188,14 +188,14 @@ int main()
 		case 'l':///load file
 			print("\nEnter file name: ");
 			read(val, sizeof(val));
-			db.Load(val);
+			db->Load(val);
 			_putch('\n');
 		
 		break;
 		case 's'://save file
 			print("\nEnter file name: ");
 			read(val, sizeof(val));
-			db.Save(val);
+			db->Save(val);
 			_putch('\n');
 			break;
 		case 'a':
@@ -204,7 +204,7 @@ int main()
 			read(val, sizeof(val));
 			print("\nEnter Value: ");
 			read(val2, sizeof(val2));
-			db.Add(val, StringtoInt(val2));
+			db->Add(val, StringtoInt(val2));
 			_putch('\n');
 
 			break;
@@ -214,10 +214,37 @@ int main()
 		case 'p'://display graph
 			print("\n         You got bars??\n");
 			print("         ------------------\n");
-			db.Print();
+			db->Print();
 			break;
 		}
 	}
+	delete db;// free memory
 	while (!_kbhit());
+
+}
+
+int main()
+{
+	char buffer[256];
+	print("Enter File Name: ");
+	read(buffer, sizeof(buffer));
+	std::ifstream wap(buffer);
+	wap.seekg(0, std::ios::end);
+	const int fileSize = wap.tellg();
+	wap.seekg(0, std::ios::beg);
+	char* wapString = new char[fileSize+1];//only use the size of file
+
+	int i = 0;
+	for (char c = wap.get(); wap.good(); c = wap.get())
+	{
+		wapString[i++] = c;
+	}
+	wapString[i] = 0;
+	print("\n File Size: ");
+	InttoString(i, buffer, sizeof(buffer));
+	print(buffer);
+
+	delete[] wapString; //delete arr of chars 
+	
 
 }
