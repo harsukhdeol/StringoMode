@@ -1,7 +1,7 @@
 #include <conio.h>
 #include <fstream>
 
-namespace cheetos 
+namespace cheetos
 {
 
 
@@ -97,7 +97,7 @@ namespace cheetos
 		}
 	}
 
-}
+
 	int main() {
 		//std::ifstream in("derp.txt");
 
@@ -134,18 +134,19 @@ namespace cheetos
 			cheetos::print("\n another error???");
 		}*/
 
-		
+
 		//std::ofstream out("data.dat");
 		//out.write(reinterpret_cast<const char*>(&myInt), sizeof(myInt));
-	
+
 		std::ifstream in("data.dat", std::ios::binary);
 		int data;
 		in.read(reinterpret_cast<char*>(&data), sizeof(int));// pass interpreted char buffer to in
 
 		char buffer[256];
-		cheetos::InttoString(data,buffer, 256);
+		cheetos::InttoString(data, buffer, 256);
 		cheetos::print(buffer);// print binary data back
 
 		while (!_kbhit());
 		return 0;
 	}
+}
